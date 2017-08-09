@@ -6,5 +6,23 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <div id="mensagem">
+
+        </div>
+
+        <button type="button" onclick="enviar()"> Teste</button>
+        <script>
+            var socket = new WebSocket('ws://localhost:8080/mensageiro/chat');
+            socket.onmessage = (function (e) {
+                div = document.getElementById('mensagem');
+                div.innerHTML = div.innerHTML + e.data;
+            });
+            socket.onopen = (function () {
+                console.log("OPEN");
+            });
+            function enviar() {
+                socket.send("OK");
+            }
+        </script>
     </body>
 </html>
