@@ -1,38 +1,54 @@
 package br.gov.ce.caucaia.mensagerapi;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 /**
  *
  * @author gilmario
+ *
  */
 public class Mensagem implements Serializable {
 
-    private String tipo;
-    private String mensagem;
+    private TipoMensagem tipo;
+    private JsonObject conteudo;
 
     public Mensagem() {
     }
 
-    public Mensagem(String tipo, String mensagem) {
+    Mensagem(TipoMensagem tipo) {
         this.tipo = tipo;
-        this.mensagem = mensagem;
     }
 
-    public String getTipo() {
+    public TipoMensagem getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoMensagem tipo) {
         this.tipo = tipo;
     }
 
-    public String getMensagem() {
-        return mensagem;
+    public JsonObject toJson() {
+        return Json.createObjectBuilder().add("tipo", tipo.toString())
+                .add("conteudo", conteudo)
+                .build();
     }
 
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
+    public void restore(JsonObject object) {
+        this.tipo = TipoMensagem.valueOf(object.getString("tipo"));
+        object.getJsonObject("conteudo");
+    }
+
+    public void restore(String object) {
+        JsonReader reader = Json.createReader(new StringReader(object));
+        restore(reader.readObject());
+    }
+
+    public JsonObject getConteudo() {
+        return conteudo;
     }
 
 }

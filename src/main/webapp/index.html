@@ -11,6 +11,12 @@
         </div>
 
         <button type="button" onclick="enviar()"> Teste</button>
+
+
+
+
+
+
         <script>
             var socket = new WebSocket('ws://localhost:8080/mensageiro/chat');
             socket.onmessage = (function (e) {
@@ -24,5 +30,6 @@
                 socket.send("OK");
             }
         </script>
+
     </body>
 </html>
