@@ -47,10 +47,10 @@ public class WebChatApplication implements Serializable {
     @OnMessage
     public void onMensagem(Session session, String mensagemTexto) throws IOException {
         Mensagem mensagem = new Mensagem();
-        mensagem.restore(mensagemTexto);
+//        mensagem.restore(mensagemTexto);
         if (mensagem.getTipo().equals(TipoMensagem.LOGIN)) {
             LoginMensagem loginMensagem = new LoginMensagem();
-            loginMensagem.restore(mensagem.getConteudo());
+//            loginMensagem.restore(mensagem.getConteudo());
             Usuario u = usuarios.get(session.getId());
             Sala s = salas.get(loginMensagem.getNumero());
             s.addUsuario(u);
@@ -58,7 +58,7 @@ public class WebChatApplication implements Serializable {
         } else if (mensagem.getTipo().equals(TipoMensagem.IN_SALA)) {
             // Retorna a lista de usuarios da sala
             NumeroSalaMensagem numeroSalaMensagem = new NumeroSalaMensagem();
-            numeroSalaMensagem.restore(mensagem.getConteudo());
+//            numeroSalaMensagem.restore(mensagem.getConteudo());
             Sala s = salas.get(numeroSalaMensagem.getNumero());
             session.getBasicRemote().sendText(new UsuariosMensagem(new ArrayList<>(s.getUsuarios().values())).toJson());
         }
