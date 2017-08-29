@@ -5,28 +5,15 @@
  */
 package br.gov.ce.caucaia.mensagerapi;
 
-import javax.json.JsonObject;
-
 /**
  *
  * @author gilmario
  */
-public class LoginMensagem {
+public class LoginMensagem implements ProcessaMensagem {
 
-    private Integer numero;
-    private String nome;
+    @Override
+    public void processar(String mensagem) {
 
-    public void restore(JsonObject object) {
-        numero = object.getInt("numero");
-        nome = object.getString("nome");
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public Integer getNumero() {
-        return numero;
     }
 
 }

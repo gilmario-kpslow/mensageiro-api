@@ -16,25 +16,9 @@ import javax.json.JsonObject;
  */
 public class UsuariosMensagem implements ProcessaMensagem {
 
-    private final List<Usuario> salas;
-
-    public UsuariosMensagem(List<Usuario> salas) {
-        this.salas = salas;
-    }
-
-    public String toJson() {
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        salas.forEach((u) -> {
-            arrayBuilder.add(Json.createObjectBuilder().add("nome", u.getNome()));
-        });
-        return Json.createObjectBuilder()
-                .add("usuario", arrayBuilder)
-                .build().toString();
-    }
-
     @Override
-    public void processar(JsonObject object) {
-
+    public void processar(String mensagem) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

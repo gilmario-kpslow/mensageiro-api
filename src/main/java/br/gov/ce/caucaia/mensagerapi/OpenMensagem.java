@@ -6,9 +6,6 @@
 package br.gov.ce.caucaia.mensagerapi;
 
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
 
 /**
  *
@@ -16,25 +13,13 @@ import javax.json.JsonObject;
  */
 public class OpenMensagem implements ProcessaMensagem {
 
-    private final List<Sala> salas;
-
-    public OpenMensagem(List<Sala> salas) {
-        this.salas = salas;
-    }
-
-    public String toJson() {
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        salas.forEach((sala) -> {
-            arrayBuilder.add(Json.createObjectBuilder().add("numero", sala.getNumero()).add("nome", sala.getNome()));
-        });
-        return Json.createObjectBuilder()
-                .add("salas", arrayBuilder)
-                .build().toString();
-    }
-
     @Override
-    public void processar(JsonObject object) {
+    public void processar(String mensagem) {
 
+    }
+
+    public String convertSalas(List<Sala> salas) {
+        return JsonConverter.converter(salas);
     }
 
 }

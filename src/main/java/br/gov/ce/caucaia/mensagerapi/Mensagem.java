@@ -1,12 +1,6 @@
 package br.gov.ce.caucaia.mensagerapi;
 
 import java.io.Serializable;
-import java.io.StringReader;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -15,30 +9,44 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class Mensagem implements Serializable {
 
-    private TipoMensagem tipo;
-    private String conteudo;
+    private Usuario emissor;
+    private Integer numeroSala;
+    private Usuario destinatario;
+    private String mensagem;
 
     public Mensagem() {
     }
 
-    Mensagem(TipoMensagem tipo) {
-        this.tipo = tipo;
+    public Usuario getEmissor() {
+        return emissor;
     }
 
-    public TipoMensagem getTipo() {
-        return tipo;
+    public void setEmissor(Usuario emissor) {
+        this.emissor = emissor;
     }
 
-    public void setTipo(TipoMensagem tipo) {
-        this.tipo = tipo;
+    public Integer getNumeroSala() {
+        return numeroSala;
     }
 
-    public String getConteudo() {
-        return conteudo;
+    public void setNumeroSala(Integer numeroSala) {
+        this.numeroSala = numeroSala;
     }
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
+    public Usuario getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(Usuario destinatario) {
+        this.destinatario = destinatario;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
 }

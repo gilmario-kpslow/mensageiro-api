@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.gov.ce.caucaia.mensagerapi;
 
 import java.io.IOException;
@@ -10,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.Singleton;
 import javax.websocket.CloseReason;
 import javax.websocket.OnMessage;
@@ -28,7 +25,6 @@ public class WebChatApplication implements Serializable {
 
     private final Map<Integer, Sala> salas = new HashMap<>();
     private final Map<String, Usuario> usuarios = new HashMap<>();
-    private ProcessaMensagem processaMensagem;
 
     public void novaSala(String nome) {
         salas.put(salas.size() + 1, new Sala(salas.size() + 1, nome));
@@ -46,32 +42,22 @@ public class WebChatApplication implements Serializable {
 
     @OnMessage
     public void onMensagem(Session session, String mensagemTexto) throws IOException {
-        Mensagem mensagem = new Mensagem();
-//        mensagem.restore(mensagemTexto);
-        if (mensagem.getTipo().equals(TipoMensagem.LOGIN)) {
-            LoginMensagem loginMensagem = new LoginMensagem();
-//            loginMensagem.restore(mensagem.getConteudo());
-            Usuario u = usuarios.get(session.getId());
-            Sala s = salas.get(loginMensagem.getNumero());
-            s.addUsuario(u);
-            session.getBasicRemote().sendText(new UsuariosMensagem(new ArrayList<>(s.getUsuarios().values())).toJson());
-        } else if (mensagem.getTipo().equals(TipoMensagem.IN_SALA)) {
-            // Retorna a lista de usuarios da sala
-            NumeroSalaMensagem numeroSalaMensagem = new NumeroSalaMensagem();
-//            numeroSalaMensagem.restore(mensagem.getConteudo());
-            Sala s = salas.get(numeroSalaMensagem.getNumero());
-            session.getBasicRemote().sendText(new UsuariosMensagem(new ArrayList<>(s.getUsuarios().values())).toJson());
-        }
+        processaTipo(mensagemTexto).getProcessaMensagem().processar(mensagemTexto);
     }
 
     @OnOpen
     public void onOpenSession(Session session, @PathParam(value = "usuario") String nome) throws IOException {
         novoUsuario(nome, session);
-        session.getBasicRemote().sendText(new OpenMensagem(new ArrayList<>(salas.values())).toJson());
+        session.getBasicRemote().sendText(JsonConverter.converter(new ArrayList<>(salas.values())));
     }
 
     public void onClose(Session session, CloseReason closeReason) throws IOException {
         removeUsuario(session.getId());
+    }
+
+    private TipoMensagem processaTipo(String mensagemTexto) {
+        Matcher matcher = Pattern.compile("\"TIPO\":\"[A-Z]\"").matcher(mensagemTexto);
+        return TipoMensagem.valueOf(mensagemTexto.substring(matcher.start(), matcher.end()));
     }
 
 }

@@ -11,6 +11,16 @@ package br.gov.ce.caucaia.mensagerapi;
  */
 public enum TipoMensagem {
 
-    OPEN_MENSAGEM, IN_SALA, LOGIN;
+    OPEN_MENSAGEM(new OpenMensagem()), /*IN_SALA()*/ LOGIN(new LoginMensagem());
+
+    private final ProcessaMensagem processaMensagem;
+
+    private TipoMensagem(ProcessaMensagem processaMensagem) {
+        this.processaMensagem = processaMensagem;
+    }
+
+    public ProcessaMensagem getProcessaMensagem() {
+        return processaMensagem;
+    }
 
 }
