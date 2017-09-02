@@ -6,9 +6,6 @@
 package br.gov.ce.caucaia.mensagerapi;
 
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
 
 /**
  *

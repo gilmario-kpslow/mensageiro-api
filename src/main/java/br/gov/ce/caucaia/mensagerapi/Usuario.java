@@ -2,7 +2,6 @@ package br.gov.ce.caucaia.mensagerapi;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.json.JsonObject;
 import javax.websocket.Session;
 
 /**
@@ -15,11 +14,6 @@ public class Usuario implements Serializable {
     private Session session;
 
     public Usuario() {
-    }
-
-    public void restore(JsonObject object) {
-        nome = object.getString("nome");
-
     }
 
     public Usuario(String nome, Session session) {

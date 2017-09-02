@@ -4,7 +4,7 @@
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body>
+    <body onload="incializa()">
         <h1>Hello World!</h1>
         <div id="mensagem">
 
@@ -18,16 +18,19 @@
 
 
         <script>
-            var socket = new WebSocket('ws://localhost:8080/mensageiro/chat');
-            socket.onmessage = (function (e) {
-                div = document.getElementById('mensagem');
-                div.innerHTML = div.innerHTML + e.data;
-            });
-            socket.onopen = (function () {
-                console.log("OPEN");
-            });
+            var socket
+            function incializa() {
+                socket = new WebSocket('ws://localhost:8080/mensageiro/chat/gilmario')
+                socket.onmessage = (function (e) {
+                    div = document.getElementById('mensagem')
+                    div.innerHTML = div.innerHTML + e.data
+                });
+                socket.onopen = (function () {
+                    console.log("OPEN")
+                });
+            }
             function enviar() {
-                socket.send("OK");
+                socket.send("OK")
             }
         </script>
 

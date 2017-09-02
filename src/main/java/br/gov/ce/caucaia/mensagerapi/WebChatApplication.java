@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ejb.Singleton;
+//import javax.ejb.Singleton;
 import javax.websocket.CloseReason;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;

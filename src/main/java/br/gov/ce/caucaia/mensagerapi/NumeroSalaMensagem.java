@@ -5,8 +5,6 @@
  */
 package br.gov.ce.caucaia.mensagerapi;
 
-import javax.json.JsonObject;
-
 /**
  *
  * @author gilmario
@@ -15,8 +13,8 @@ public class NumeroSalaMensagem {
 
     private Integer numero;
 
-    public void restore(JsonObject object) {
-        numero = object.getInt("numero");
+    public void restore() {
+//        numero = object.getInt("numero");
     }
 
     public Integer getNumero() {
